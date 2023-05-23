@@ -1,0 +1,37 @@
+## Imports 
+import pandas as pd
+import numpy as np
+
+
+TC = pd.read_csv ('TelecomChurn.csv')
+## Name of all columns 
+# print(TC.columns.values.tolist())
+
+##Check for Duplicates return of True means that there is a duplicate otherwise all unique transactions
+##print(TC.duplicated(subset=['Customer_ID']).any())
+
+conditions = [
+    (TC["Age"] < 30),
+    (TC["Age"] >= 30) & (TC["Age"]< 50),
+    (TC["Age"] >= 50)
+]
+
+values = ['young','middle','old']
+
+TC["Age_Class"] = np.select(conditions, values, default = 'N/A')
+
+##print(TC[["Age","Age_Class"]])
+
+conditions2 = [
+    (TC["Offer"] == 'Offer A') | (TC["Offer"] =='Offer B') | (TC["Offer"] =='Offer C') | (TC["Offer"] =='Offer D') | (TC["Offer"] =='Offer E'),
+    (TC["Offer"] == 'None')
+]
+
+values2 = ['Plan','Basic Plan']
+
+TC['Package'] = np.select(conditions2, values2, default = "N/A")
+##print(TC[["Package",'Offer']])
+
+
+
+##TC.to_excel("TCUpdated.xlsx")
