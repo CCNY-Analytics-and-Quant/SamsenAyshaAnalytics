@@ -1,0 +1,3 @@
+SELECT Longitude, Latitude
+FROM telecom_customer_churn
+WHERE Longitude ='39.041857';
